@@ -49,7 +49,7 @@ export default function SwapInterface({ connected }: SwapInterfaceProps) {
 
             <div className="flex justify-center -my-3 relative z-10">
               <div className="p-2 rounded-full bg-[#131A2A] border border-gray-800 shadow-md">
-                <ArrowDownIcon className="h-5 w-5" />
+                <ArrowDownIcon className="h-5 w-5" color="white"/>
               </div>
             </div>
 
