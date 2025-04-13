@@ -15,8 +15,8 @@ export default function SwapInterface({ connected }: SwapInterfaceProps) {
   return (
     <div className="flex flex-col items-center w-full max-w-xl px-4">
       <div className="text-center mb-14 mt-6">
-        <h1 className="text-6xl font-medium mb-6 tracking-tight">
-          Swap anytime, <br />anywhere.
+        <h1 className="text-5xl font-medium mb-6 tracking-tight">
+          Swap anytime, <br />anywhere
         </h1>
       </div>
 
