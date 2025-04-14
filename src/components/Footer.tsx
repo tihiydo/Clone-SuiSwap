@@ -1,58 +1,81 @@
 import { Github, Twitter, MessageCircle } from "lucide-react";
 
 export default function Footer() {
+  // Объект со ссылками на Uniswap
+  const uniswapLinks = {
+    swap: "https://app.uniswap.org/swap",
+    explore: "https://app.uniswap.org/explore",
+    pool: "https://app.uniswap.org/pool",
+    tokens: "https://app.uniswap.org/tokens/ethereum",
+    nfts: "https://app.uniswap.org/nfts",
+    vote: "https://app.uniswap.org/vote",
+    careers: "https://boards.greenhouse.io/uniswaplabs",
+    blog: "https://blog.uniswap.org/",
+    brand: "https://uniswap.org/brandkit",
+    help: "https://support.uniswap.org/",
+    contact: "https://support.uniswap.org/hc/en-us/requests/new",
+    governance: "https://gov.uniswap.org/",
+    developers: "https://docs.uniswap.org/",
+  };
+
   return (
     <footer className="py-20 px-4 md:px-10 border-t border-gray-800">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl font-bold mb-16">Connect with us</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Help Center */}
-          <div className="bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64">
+          <a
+            href={uniswapLinks.help}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64 hover:bg-[#121a1f] transition-colors cursor-pointer"
+          >
             <div className="bg-[#3A1C12] w-12 h-12 rounded-full flex items-center justify-center mb-4">
               <MessageCircle className="h-6 w-6 text-orange-500" />
             </div>
-            <h3 className="text-xl font-medium flex items-center gap-2 mb-2">
+            <h3 className="text-xl font-medium mb-2">
               Help Center
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400">
-                <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor" />
-              </svg>
             </h3>
             <p className="text-gray-400 mb-4">
               Get support
             </p>
-          </div>
+          </a>
 
-          {/* Blog */}
-          <div className="bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64">
+          <a
+            href={uniswapLinks.blog}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64 hover:bg-[#121a1f] transition-colors cursor-pointer"
+          >
             <div className="bg-[#222D1B] w-12 h-12 rounded-full flex items-center justify-center mb-4">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-green-500">
                 <path d="M3 3V21H21V3H3ZM12.8 17H6.5V15.5H12.8V17ZM17.5 12.5H6.5V11H17.5V12.5ZM17.5 8H6.5V6.5H17.5V8Z" fill="currentColor" />
               </svg>
             </div>
-            <h3 className="text-xl font-medium flex items-center gap-2 mb-2">
+            <h3 className="text-xl font-medium mb-2">
               Blog
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400">
-                <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor" />
-              </svg>
             </h3>
             <p className="text-gray-400 mb-4">
               Insights and updates from <br/>the team
             </p>
-          </div>
+          </a>
 
-          {/* Stay Connected */}
-          <div className="bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64">
+          <a
+            href="https://twitter.com/Uniswap"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-[#0D1114] border border-gray-800 rounded-2xl p-6 flex flex-col h-64 hover:bg-[#121a1f] transition-colors cursor-pointer"
+          >
             <div className="bg-[#1F1B2C] w-12 h-12 rounded-full flex items-center justify-center mb-4">
               <MessageCircle className="h-6 w-6 text-pink-500" />
             </div>
-            <h3 className="text-xl font-medium flex items-center gap-2 mb-2">
+            <h3 className="text-xl font-medium mb-2">
               Stay in touch
             </h3>
             <p className="text-gray-400 mb-4">
               Follow @Uniswap on X to stay <br/>up-to-date on updates
             </p>
-          </div>
+          </a>
         </div>
 
         <div className="mt-24 flex flex-col md:flex-row md:items-center md:justify-between">
@@ -74,35 +97,89 @@ export default function Footer() {
             <div>
               <h4 className="font-medium mb-4">App</h4>
               <ul className="space-y-3">
-                <li><a href="/swap" className="text-gray-400 hover:text-white">Swap</a></li>
-                <li><a href="/explore" className="text-gray-400 hover:text-white">Explore</a></li>
-                <li><a href="/pool" className="text-gray-400 hover:text-white">Pool</a></li>
+                <li>
+                  <a href={uniswapLinks.swap} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Swap
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.explore} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Explore
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.pool} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Pool
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.tokens} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Tokens
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.nfts} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    NFTs
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-medium mb-4">Company</h4>
               <ul className="space-y-3">
-                <li><a href="/careers" className="text-gray-400 hover:text-white">Careers</a></li>
-                <li><a href="/blog" className="text-gray-400 hover:text-white">Blog</a></li>
-                <li><a href="/brand" className="text-gray-400 hover:text-white">Brand assets</a></li>
+                <li>
+                  <a href={uniswapLinks.careers} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.blog} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.brand} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Brand assets
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-medium mb-4">Protocol</h4>
               <ul className="space-y-3">
-                <li><a href="/vote" className="text-gray-400 hover:text-white">Vote</a></li>
-                <li><a href="/governance" className="text-gray-400 hover:text-white">Governance</a></li>
-                <li><a href="/developers" className="text-gray-400 hover:text-white">Developers</a></li>
+                <li>
+                  <a href={uniswapLinks.vote} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Vote
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.governance} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Governance
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.developers} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Developers
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-medium mb-4">Need help?</h4>
               <ul className="space-y-3">
-                <li><a href="/help" className="text-gray-400 hover:text-white">Help center</a></li>
-                <li><a href="/contact" className="text-gray-400 hover:text-white">Contact us</a></li>
+                <li>
+                  <a href={uniswapLinks.help} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Help center
+                  </a>
+                </li>
+                <li>
+                  <a href={uniswapLinks.contact} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white cursor-pointer">
+                    Contact us
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

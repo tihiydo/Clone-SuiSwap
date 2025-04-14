@@ -1,6 +1,12 @@
 import { Search, MoreHorizontal, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 interface HeaderProps {
   connected: boolean;
@@ -8,12 +14,25 @@ interface HeaderProps {
 }
 
 export default function Header({ connected, setConnected }: HeaderProps) {
+  // Ссылки на Uniswap
+  const uniswapLinks = {
+    swap: "https://app.uniswap.org/swap",
+    explore: "https://app.uniswap.org/explore",
+    pool: "https://app.uniswap.org/pool",
+    getApp: "https://app.uniswap.org/download",
+    tokens: "https://app.uniswap.org/tokens/ethereum",
+    nfts: "https://app.uniswap.org/nfts",
+    docs: "https://docs.uniswap.org/",
+    blog: "https://blog.uniswap.org/",
+    governance: "https://app.uniswap.org/vote",
+  };
+
   return (
     <header className="z-20 py-3 px-4 flex justify-between items-center relative">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <img src="/images/uniswap-logo-transparent.png" alt="Uniswap Logo" className="h-8 w-8 pink-glow" />
-          <span className="text-xl font-medium text-pink-500 hidden md:inline">Uniswap</span>
+          <span className="text-xl font-[100] text-[#ff37c7] hidden md:inline">Uniswap</span>
         </div>
 
         <button className="md:hidden text-gray-400">
@@ -21,9 +40,27 @@ export default function Header({ connected, setConnected }: HeaderProps) {
         </button>
 
         <nav className="hidden md:flex items-center gap-6 ml-4">
-          <a href="/swap" className="text-white hover:text-pink-500 font-medium">Swap</a>
-          <a href="/explore" className="text-gray-400 hover:text-white">Explore</a>
-          <a href="/pool" className="text-gray-400 hover:text-white">Pool</a>
+          <span
+            className="text-white font-medium cursor-pointer"
+          >
+            Swap
+          </span>
+          <a
+            href={uniswapLinks.explore}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white cursor-pointer"
+          >
+            Explore
+          </a>
+          <a
+            href={uniswapLinks.pool}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white cursor-pointer"
+          >
+            Pool
+          </a>
         </nav>
       </div>
 
@@ -42,20 +79,83 @@ export default function Header({ connected, setConnected }: HeaderProps) {
           </div>
         </div>
 
-        <Button
-          variant="outline"
-          className="hidden md:flex rounded-full border-gray-700 text-black"
+        <a
+          href={uniswapLinks.getApp}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:flex items-center gap-1"
         >
-          Get app
-        </Button>
+          <Button
+            variant="outline"
+            className="rounded-full border-gray-700 bg-gray-800 text-gray-200 hover:text-white hover:bg-gray-700"
+          >
+            Get app
+          </Button>
+        </a>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full text-gray-400"
-        >
-          <MoreHorizontal className="h-5 w-5" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-gray-400"
+            >
+              <MoreHorizontal className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-[#131A2A] border border-gray-800 text-white p-2 rounded-xl">
+            <DropdownMenuItem className="focus:bg-[#1c2333] rounded-lg cursor-pointer">
+              <a
+                href={uniswapLinks.tokens}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center w-full cursor-pointer"
+              >
+                Tokens
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-[#1c2333] rounded-lg cursor-pointer">
+              <a
+                href={uniswapLinks.nfts}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center w-full cursor-pointer"
+              >
+                NFTs
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-[#1c2333] rounded-lg cursor-pointer">
+              <a
+                href={uniswapLinks.docs}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center w-full cursor-pointer"
+              >
+                Docs
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-[#1c2333] rounded-lg cursor-pointer">
+              <a
+                href={uniswapLinks.blog}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center w-full cursor-pointer"
+              >
+                Blog
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="focus:bg-[#1c2333] rounded-lg cursor-pointer">
+              <a
+                href={uniswapLinks.governance}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center w-full cursor-pointer"
+              >
+                Governance
+              </a>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Button
           onClick={() => setConnected(!connected)}

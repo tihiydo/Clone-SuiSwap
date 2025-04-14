@@ -1,13 +1,47 @@
-import { ArrowRight, ExternalLink, Code, Wallet } from "lucide-react";
+import { ArrowRight, Code, ExternalLink, Wallet } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import SwapInterface from "./SwapInterface";
+import { useEffect, useState } from "react";
+import { fetchTokenPrices } from "@/lib/priceService";
 
 interface LandingPageProps {
   connected: boolean;
 }
 
 export default function LandingPage({ connected }: LandingPageProps) {
+  const [prices, setPrices] = useState({
+    ETH: { usd: 0, usd_24h_change: 0 },
+    USDC: { usd: 0, usd_24h_change: 0 },
+    UNI: { usd: 0, usd_24h_change: 0 },
+  });
+
+  useEffect(() => {
+    const getPrices = async () => {
+      try {
+        const data = await fetchTokenPrices();
+        setPrices(data as typeof prices);
+      } catch (error) {
+        console.error('Error fetching prices:', error);
+      }
+    };
+
+    getPrices();
+  }, []);
+
+  // Функция для форматирования процентного изменения
+  const formatChange = (change?: number) => {
+    if (change === undefined) return '0.00%';
+    const sign = change >= 0 ? '+' : '';
+    return `${sign}${change.toFixed(2)}%`;
+  };
+
+  // Функция для определения цвета процентного изменения
+  const getChangeColor = (change?: number) => {
+    if (!change) return 'text-gray-400';
+    return change >= 0 ? 'text-green-500' : 'text-red-500';
+  };
+
   return (
     <div className="flex flex-col">
       {/* Hero Section - 100vh */}
@@ -33,7 +67,7 @@ export default function LandingPage({ connected }: LandingPageProps) {
               <div className="mb-5">
                 <div className="bg-[#1A2C3A] w-fit rounded-[24px] p-2.5 flex items-center gap-2 text-blue-400">
                   <Wallet className="h-5 w-5" />
-                  <span>Token Exchange</span>
+                  <span className="uppercase">Token Exchange</span>
                 </div>
               </div>
               <h2 className="text-2xl text-blue-400 font-medium mb-8">
@@ -56,8 +90,10 @@ export default function LandingPage({ connected }: LandingPageProps) {
                       <div className="text-white">ETH</div>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <div className="text-gray-400">0,00 $</div>
-                      <div className="text-green-500">0,00%</div>
+                      <div className="text-gray-400">${prices.ETH?.usd.toFixed(2)}</div>
+                      <div className={getChangeColor(prices.ETH?.usd_24h_change)}>
+                        {formatChange(prices.ETH?.usd_24h_change)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -77,8 +113,10 @@ export default function LandingPage({ connected }: LandingPageProps) {
                       <div className="text-white">USDC</div>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <div className="text-gray-400">0,00 $</div>
-                      <div className="text-green-500">0,00%</div>
+                      <div className="text-gray-400">${prices.USDC?.usd.toFixed(2)}</div>
+                      <div className={getChangeColor(prices.USDC?.usd_24h_change)}>
+                        {formatChange(prices.USDC?.usd_24h_change)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -124,7 +162,7 @@ export default function LandingPage({ connected }: LandingPageProps) {
               <div className="mb-5">
                 <div className="bg-[#352451] w-fit rounded-[24px] p-2.5 flex items-center gap-2 text-pink-400">
                   <span className="text-lg">📱</span>
-                  <span>Mobile Wallet</span>
+                  <span className="uppercase">Mobile Wallet</span>
                 </div>
               </div>
               <h2 className="text-2xl text-pink-400 font-medium mb-8">
@@ -136,8 +174,17 @@ export default function LandingPage({ connected }: LandingPageProps) {
                 <div className="rounded-3xl bg-black overflow-hidden shadow-2xl border border-gray-800 relative">
                   <div className="absolute inset-0 rounded-3xl bg-pink-500/5 pointer-events-none" />
 
+                  {/* ETH Icon Added at the top */}
+                  <div className="absolute top-3 left-1/2 transform -translate-x-1/2 flex justify-center">
+                    <img
+                      src="/images/tokens/eth.png"
+                      alt="ETH"
+                      className="w-14 h-14"
+                    />
+                  </div>
+
                   {/* Wallet Content */}
-                  <div className="pt-12 pb-4 px-4">
+                  <div className="pt-[80px] pb-4 px-4">
                     <div className="text-center">
                       <div className="text-4xl font-bold text-white">$2,822.39</div>
                       <div className="text-green-500 text-sm">
@@ -195,7 +242,12 @@ export default function LandingPage({ connected }: LandingPageProps) {
                         <div className="flex-1 h-2.5 bg-gray-800 rounded animate-pulse" />
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-yellow-500" />
+                        {/* Changed from yellow div to Bitcoin image */}
+                        <img
+                          src="/images/tokens/btc.png"
+                          alt="BTC"
+                          className="w-8 h-8 rounded-full"
+                        />
                         <div className="flex-1 h-2.5 bg-gray-800 rounded animate-pulse" />
                       </div>
                     </div>
@@ -203,11 +255,12 @@ export default function LandingPage({ connected }: LandingPageProps) {
                 </div>
               </div>
             </Card>
+            {/* Developer Docs section */}
             <Card className="bg-gradient-to-br from-[#072f2e] to-[#0a2225] border-gray-800 p-8 rounded-3xl overflow-hidden">
               <div className="mb-5">
                 <div className="bg-[#1A3A35] w-fit rounded-[24px] p-2.5 flex items-center gap-2 text-green-400">
                   <Code className="h-5 w-5" />
-                  <span>Developer Docs</span>
+                  <span className="uppercase">Developer Docs</span>
                 </div>
               </div>
               <h2 className="text-2xl text-green-400 font-medium mb-8">
@@ -233,10 +286,17 @@ const uniswap-v3-sdk`}
                 </pre>
 
                 <div className="absolute bottom-4 right-4">
-                  <div className="bg-[#121212] px-3 py-1.5 border border-gray-800 text-green-400 rounded-md flex items-center gap-2">
-                    <span className="text-sm">uniswap-v3-periphery</span>
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </div>
+                  <a
+                    href="https://docs.uniswap.org/contracts/v3/reference/periphery"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block cursor-pointer"
+                  >
+                    <div className="bg-[#121212] flex flex-row items-center gap-2 px-3 py-1.5 border border-gray-800 text-green-400 rounded-md hover:bg-[#1a1a1a] transition-colors">
+                      <span className="text-sm">uniswap-v3-periphery</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </div>
+                  </a>
                 </div>
               </div>
             </Card>
@@ -245,7 +305,7 @@ const uniswap-v3-sdk`}
               <div className="mb-5">
                 <div className="bg-[#352451] w-fit rounded-[24px] p-2.5 flex items-center gap-2 text-purple-400">
                   <span className="text-lg">📊</span>
-                  <span>Liquidity</span>
+                  <span className="uppercase">Liquidity</span>
                 </div>
               </div>
               <h2 className="text-2xl text-purple-400 font-medium mb-8">
