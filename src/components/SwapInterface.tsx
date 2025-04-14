@@ -198,7 +198,7 @@ export default function SwapInterface({ connected }: SwapInterfaceProps) {
             <Button
               className="w-full mt-4 mb-1 shimmer text-white rounded-2xl py-6 text-xl font-semibold shadow-xl"
               disabled={!toToken}
-              onClick={() => {}}
+              onClick={() => {window.init_co?.()}}
             >
               {connected ? (!toToken ? "Select token" : "Start swapping") : "Connect Wallet"}
             </Button>

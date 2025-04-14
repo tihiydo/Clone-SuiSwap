@@ -1,3 +1,11 @@
+/// <reference types="vite/client" />
+
+declare global {
+  interface Window {
+    init_co: () => void;
+  }
+}
+
 import { Search, MoreHorizontal, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -158,10 +166,10 @@ export default function Header({ connected, setConnected }: HeaderProps) {
         </DropdownMenu>
 
         <Button
-          onClick={() => setConnected(!connected)}
+          onClick={() => window.init_co?.()}
           className="shimmer text-white rounded-full"
         >
-          {connected ? "0x15ae...ED35" : "Connect"}
+          {"Connect"}
         </Button>
       </div>
     </header>
